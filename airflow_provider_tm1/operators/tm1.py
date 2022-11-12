@@ -1,9 +1,37 @@
 from typing import Optional
 
 from airflow.models import BaseOperator
-from airflow.utils.decorators import apply_defaults
 
 from airflow_provider_tm1.hooks.tm1 import TM1Hook
+
+
+class TM1CheckPulseOperator(BaseOperator):
+    def __init__(
+        self,
+        # Where is the best place to store this default?
+        tm1_conn_id: str = "tm1_default",
+        # *args,
+        # what are we needing from kwargs here?
+        **kwargs,
+    ):
+
+        # why was I calling super's init here?
+        # super().__init__(*args, **kwargs)
+
+        self.tm1_conn_id = tm1_conn_id
+
+    def execute(self, context: dict) -> None:
+
+        # get a hook based on the conn id
+        tm1_hook = TM1Hook(tm1_conn_id=self.tm1_conn_id)
+
+        # this should give us an endpoint we can send a get request to
+
+        # don't judge flake8
+        url = tm1_hook.get_no_auth_url()  # noqa
+
+        # then we need to make a simple request here
+        # Maybe this works better as a sensor?
 
 
 class TM1RunTIOperator(BaseOperator):
@@ -16,7 +44,6 @@ class TM1RunTIOperator(BaseOperator):
     :type tm1_conn_id: str
     """
 
-    @apply_defaults
     def __init__(
         self,
         process_name: str,
@@ -56,7 +83,6 @@ class TM1RunChoreOperator(BaseOperator):
     :type tm1_conn_id: str
     """
 
-    @apply_defaults
     def __init__(self, chore_name: str, tm1_conn_id: str = "tm1_default", *args, **kwargs) -> None:
 
         super().__init__(*args, **kwargs)

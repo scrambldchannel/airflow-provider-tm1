@@ -1,4 +1,15 @@
-from airflow_provider_tm1.operators.tm1 import TM1RunChoreOperator, TM1RunTIOperator
+from airflow_provider_tm1.operators.tm1 import (
+    TM1CheckPulseOperator,
+    TM1RunChoreOperator,
+    TM1RunTIOperator,
+)
+
+
+def test_check_pulse():
+
+    op = TM1CheckPulseOperator()
+
+    assert op
 
 
 def test_run_ti_init():
