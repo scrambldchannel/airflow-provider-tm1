@@ -26,6 +26,7 @@ class TM1Hook(BaseHook):
 
         self.tm1_conn_id = tm1_conn_id
 
+        # getch this with get_conn
         self.client: Optional[TM1Service] = None
         self.server_name: Optional[str] = None
         self.server_version: Optional[str] = None
