@@ -8,31 +8,16 @@ from airflow_provider_tm1.hooks.tm1 import TM1Hook
 class TM1CheckPulseOperator(BaseOperator):
     def __init__(
         self,
-        process_name: str,
         tm1_conn_id: str = "tm1_default",
-        parameters: Optional[dict] = None,
-        *args,
+        # *args,
+        # what are we needing from kwargs here?
         **kwargs,
-    ) -> None:
+    ):
 
-        super().__init__(*args, **kwargs)
+        # why was I calling super's init here?
+        # super().__init__(*args, **kwargs)
 
         self.tm1_conn_id = tm1_conn_id
-        self.process_name = process_name
-        self.parameters = parameters
-
-    def execute(self, context: dict) -> None:
-        tm1_hook = TM1Hook(tm1_conn_id=self.tm1_conn_id)
-
-        tm1 = tm1_hook.get_conn()
-
-        if not tm1.processes.exists(self.process_name):
-            raise Exception(f"Process {self.process_name} not found on TM1 server {tm1_hook.db}.")
-        else:
-            print(
-                f"Process {self.process_name} executed on TM1 server {tm1_hook.db} with parameters {self.parameters}."
-            )
-            tm1.processes.execute(self.process_name, **self.parameters)
 
 
 class TM1RunTIOperator(BaseOperator):
