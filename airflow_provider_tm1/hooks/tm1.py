@@ -49,9 +49,6 @@ class TM1Hook(BaseHook):
         self.ssl: bool = extras.get("ssl", False)
         self.session_context: str = extras.get("session_context", "Airflow")
 
-        # is it best practice for the initialiser to always return a connection?
-        self.get_conn()
-
     def get_conn(self) -> TM1Service:
         """Function that creates a new TM1py Service object and returns it"""
 
