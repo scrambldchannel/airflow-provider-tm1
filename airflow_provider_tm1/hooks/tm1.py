@@ -79,6 +79,7 @@ class TM1Hook(BaseHook):
         return self.client
 
     def get_no_auth_url(self):
+        """Return a URL based on the host and port"""
 
         # how to handle http vs https and how does this relate to the ssl param?
         no_auth_url = f"http://{self.address}:{self.port}/api/v1/$metadata"
