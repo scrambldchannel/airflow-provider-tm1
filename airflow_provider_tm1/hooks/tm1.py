@@ -70,7 +70,7 @@ class TM1Hook(BaseHook):
                     password=self.password,
                     ssl=self.ssl,
                 )
-                self.db = self.client.server.get_server_name()
+                self.server_name = self.client.server.get_server_name()
                 self.server_version = self.client.server.get_product_version()
 
             except ValueError as tm1_error:

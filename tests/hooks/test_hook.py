@@ -22,4 +22,6 @@ def test_hook_init(mock_connection_uri):
 
         Connection.get_connection_from_secrets(conn_id="tm1_default")
 
-        assert TM1Hook(tm1_conn_id="tm1_default")
+        tm1_hook = TM1Hook(tm1_conn_id="tm1_default")
+
+        assert tm1_hook
