@@ -3,20 +3,19 @@ name: Tests
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths: ["airflow-tm1/**/*", "tests/**/*"]
+    paths: ["airflow-provider-tm1/**/*", "tests/**/*"]
 
   push:
     branches:
     - main
     paths:
-    - "airflow-tm1/**/*"
+    - "airflow-provider-tm1/**/*"
 
 jobs:
 
   pytest:
     runs-on: ubuntu-latest
 
-    # potentially add further python versions to test against
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
@@ -36,12 +35,6 @@ jobs:
           python -m pip install --upgrade pip
 
       # is there a better approach to this?
-      # e.g. can I run an airflow docker container and test against that?
-      # or just mock airflow somehow?
-      - name: install airflow
-        run:
-          pip install apache-airflow
-
       - name: install airflow-tm1 package
         run:
           pip install .

@@ -3,7 +3,7 @@ name: isort
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths: ["src/**/*", "tests/**/*"]
+    paths: ["airflow-provider-tm1/**/*", "tests/**/*"]
 
 jobs:
   isort:
