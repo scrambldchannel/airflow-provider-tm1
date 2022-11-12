@@ -8,6 +8,7 @@ from airflow_provider_tm1.hooks.tm1 import TM1Hook
 class TM1CheckPulseOperator(BaseOperator):
     def __init__(
         self,
+        # Where is the best place to store this default?
         tm1_conn_id: str = "tm1_default",
         # *args,
         # what are we needing from kwargs here?
@@ -18,6 +19,19 @@ class TM1CheckPulseOperator(BaseOperator):
         # super().__init__(*args, **kwargs)
 
         self.tm1_conn_id = tm1_conn_id
+
+    def execute(self, context: dict) -> None:
+
+        # get a hook based on the conn id
+        tm1_hook = TM1Hook(tm1_conn_id=self.tm1_conn_id)
+
+        # this should give us an endpoint we can send a get request to
+
+        # don't judge flake8
+        url = tm1_hook.get_no_auth_url()  # noqa
+
+        # then we need to make a simple request here
+        # Maybe this works better as a sensor?
 
 
 class TM1RunTIOperator(BaseOperator):
