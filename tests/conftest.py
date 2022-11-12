@@ -1,25 +1,26 @@
 import pytest
-
-# from TM1py import Cube, Dimension, DimensionService, Element, Hierarchy
+from airflow.models.connection import Connection
 from TM1py.Services.RestService import RestService
 
-# from airflow.models.connection import Connection
 
+@pytest.fixture(scope="module")
+def mock_connection_uri():
 
-@pytest.fixture(scope="function")
-def airflow_connection():
+    conn = Connection(
+        conn_id="tm1_default",
+        conn_type="tm1",
+        host="tm1",
+        login="admin",
+        password="apple",
+        port=8080,
+        extra={
+            "ssl": True,
+        },
+    )
 
-    # conn = Connection(
-    #     conn_id="tm1_default",
-    #     host="localhost",
-    #     login="admin",
-    #     password="apple",
-    #     port=10001,
-    #     extra="""{"ssl":false}""",
-    # )
+    conn_uri = conn.get_uri()
 
-    # return conn
-    pass
+    return conn_uri
 
 
 @pytest.fixture(scope="function")

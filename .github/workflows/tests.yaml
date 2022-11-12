@@ -43,5 +43,5 @@ jobs:
         run:
           pip install pytest pytest-mock
 
-      - name: run core tests
-        run: pytest -s -v tests
+      - name: run mocked tests
+        run: pytest -s -v tests -m "mocked"
