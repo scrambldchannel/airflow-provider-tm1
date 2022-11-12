@@ -3,13 +3,13 @@ name: Tests
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths: ["airflow-provider-tm1/**/*", "tests/**/*"]
+    paths: ["airflow_provider_tm1/**/*", "tests/**/*"]
 
   push:
     branches:
     - main
     paths:
-    - "airflow-provider-tm1/**/*"
+    - "airflow_provider_tm1/**/*"
 
 jobs:
 
@@ -35,7 +35,7 @@ jobs:
           python -m pip install --upgrade pip
 
       # is there a better approach to this?
-      - name: install airflow-tm1 package
+      - name: install airflow-provier-tm1 package
         run:
           pip install .
 

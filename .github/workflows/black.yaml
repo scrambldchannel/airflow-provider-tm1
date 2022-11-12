@@ -3,7 +3,7 @@ name: black
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths: ["airflow-provider-tm1/**/*", "tests/**/*"]
+    paths: ["airflow_provider_tm1/**/*", "tests/**/*"]
 
 jobs:
   black:
