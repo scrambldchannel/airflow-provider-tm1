@@ -23,6 +23,24 @@ def mock_connection_uri():
     return conn_uri
 
 
+@pytest.fixture(scope="module")
+def mock_no_auth_connection_uri():
+
+    conn = Connection(
+        conn_id="tm1_default_no_auth",
+        conn_type="tm1",
+        host="tm1",
+        port=8080,
+        extra={
+            "ssl": True,
+        },
+    )
+
+    conn_uri = conn.get_uri()
+
+    return conn_uri
+
+
 @pytest.fixture(scope="function")
 def mock_rest_service(module_mocker):
     """

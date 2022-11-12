@@ -77,3 +77,10 @@ class TM1Hook(BaseHook):
                 raise AirflowException(f"Failed to create tm1 client, error: {str(e)}")
 
         return self.client
+
+    def get_no_auth_url(self):
+
+        # how to handle http vs https and how does this relate to the ssl param?
+        no_auth_url = f"http://{self.address}:{self.port}/api/v1/$metadata"
+
+        return no_auth_url
