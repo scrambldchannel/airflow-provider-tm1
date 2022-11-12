@@ -26,6 +26,7 @@ class TM1Hook(BaseHook):
 
         self.tm1_conn_id = tm1_conn_id
 
+        # getch this with get_conn
         self.client: Optional[TM1Service] = None
         self.server_name: Optional[str] = None
         self.server_version: Optional[str] = None
@@ -48,9 +49,6 @@ class TM1Hook(BaseHook):
         extras = conn.extra_dejson
         self.ssl: bool = extras.get("ssl", False)
         self.session_context: str = extras.get("session_context", "Airflow")
-
-        # is it best practice for the initialiser to always return a connection?
-        self.get_conn()
 
     def get_conn(self) -> TM1Service:
         """Function that creates a new TM1py Service object and returns it"""
@@ -79,3 +77,10 @@ class TM1Hook(BaseHook):
                 raise AirflowException(f"Failed to create tm1 client, error: {str(e)}")
 
         return self.client
+
+    def get_no_auth_url(self):
+
+        # how to handle http vs https and how does this relate to the ssl param?
+        no_auth_url = f"http://{self.address}:{self.port}/api/v1/$metadata"
+
+        return no_auth_url
